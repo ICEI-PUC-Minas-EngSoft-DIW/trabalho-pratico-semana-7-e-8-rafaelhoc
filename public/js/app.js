@@ -63,3 +63,37 @@ function carregarProjetos() {
 if (document.body.id === "home") {
   carregarProjetos();
 }
+
+// Detalhes: Mostra informações completas
+function carregarDetalhes() {
+  const params = new URLSearchParams(window.location.search);
+  const idProjeto = params.get("id");
+
+  const projeto = dados.find(p => p.id == idProjeto);
+  const container = document.getElementById("detalhes-container");
+
+  if (projeto && container) {
+    container.innerHTML = `
+      <div class="card border-0 shadow mb-4">
+        <img src="${projeto.imagem}" class="card-img-top" alt="${projeto.titulo}">
+        <div class="card-body">
+          <h2 class="card-title text-success mb-3">${projeto.titulo}</h2>
+          <p class="card-text"><strong>Descrição:</strong> ${projeto.descricao}</p>
+          <p class="card-text"><strong>Conteúdo:</strong> ${projeto.conteudo}</p>
+          <p class="card-text"><strong>Objetivos:</strong> ${projeto.objetivos}</p>
+          <p class="card-text"><strong>Resultados:</strong> ${projeto.resultados}</p>
+          <p class="card-text"><strong>Local:</strong> ${projeto.local}</p>
+          <p class="card-text"><strong>Parceiros:</strong> ${projeto.parceiros}</p>
+          <p class="card-text"><strong>Datas:</strong> ${projeto.datas}</p>
+        </div>
+      </div>
+    `;
+  } else if (container) {
+    container.innerHTML = `<p class="text-danger">Projeto não encontrado.</p>`;
+  }
+}
+
+// Executa se estiver na página de detalhes
+if (document.body.id === "detalhes") {
+  carregarDetalhes();
+}
